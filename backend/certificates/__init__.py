@@ -1,3 +1,17 @@
+from .interfaces import (
+    CertificateAlreadyRevokedException,
+    CertificateAlreadyStoredException,
+    CertificateNotFoundException,
+    CertificateReference,
+    CertificateRevocationReference,
+    EncryptionKeyNotFoundException,
+    InvalidCertificateException,
+    RevokeCertificateRequest,
+    SecureCertificateStorageInterface,
+    SecureStorageException,
+    SecureStorageOperationException,
+    StoreCertificateRequest,
+)
 from .models import (
     CertificateMetadata,
     CertificateStatus,
@@ -19,6 +33,22 @@ from .schemas import (
 from .repository import CertificateRepository
 
 __all__ = [
+    # Secure Storage Interfaces
+    "SecureCertificateStorageInterface",
+    "StoreCertificateRequest",
+    "CertificateReference",
+    "RevokeCertificateRequest",
+    "CertificateRevocationReference",
+    
+    # Exceptions
+    "SecureStorageException",
+    "CertificateAlreadyStoredException",
+    "CertificateNotFoundException",
+    "CertificateAlreadyRevokedException",
+    "EncryptionKeyNotFoundException",
+    "InvalidCertificateException",
+    "SecureStorageOperationException",
+    
     # Models
     "CertificateMetadata",
     "CertificateStatus", 
