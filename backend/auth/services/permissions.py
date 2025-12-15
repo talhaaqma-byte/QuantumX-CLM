@@ -7,7 +7,7 @@ Currently contains placeholder methods for future implementation.
 
 from __future__ import annotations
 
-from typing import Optional, list
+from typing import Optional
 from uuid import UUID
 
 from backend.auth.schemas.auth import RoleInfo, PermissionInfo

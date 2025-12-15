@@ -1,3 +1,4 @@
+from backend.auth.models.audit import AuditLog
 from backend.auth.models.rbac import (
     Permission,
     Role,
@@ -6,4 +7,4 @@ from backend.auth.models.rbac import (
     UserRole,
 )
 
-__all__ = ["User", "Role", "Permission", "UserRole", "RolePermission"]
+__all__ = ["User", "Role", "Permission", "UserRole", "RolePermission", "AuditLog"]

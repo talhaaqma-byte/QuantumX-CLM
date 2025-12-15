@@ -6,34 +6,20 @@ This module exports Pydantic models for authentication endpoints.
 
 from __future__ import annotations
 
-from .auth import (
-    AuthResponse,
-    ChangePasswordRequest,
-    ErrorResponse,
-    LoginRequest,
-    LogoutResponse,
-    PermissionInfo,
-    PermissionsResponse,
-    ProfileResponse,
-    RegisterRequest,
-    RoleInfo,
-    TokenRefreshRequest,
-    TokenRefreshResponse,
-    UserRolesResponse,
+from .audit import (
+    ActionResult,
+    AuditEventCreate,
+    AuditEventResponse,
+    AuthEventType,
+    EventCategory,
+    Severity,
 )
 
 __all__ = [
-    "AuthResponse",
-    "ChangePasswordRequest", 
-    "ErrorResponse",
-    "LoginRequest",
-    "LogoutResponse",
-    "PermissionInfo",
-    "PermissionsResponse",
-    "ProfileResponse",
-    "RegisterRequest",
-    "RoleInfo",
-    "TokenRefreshRequest",
-    "TokenRefreshResponse",
-    "UserRolesResponse",
+    "ActionResult",
+    "AuditEventCreate",
+    "AuditEventResponse",
+    "AuthEventType",
+    "EventCategory",
+    "Severity",
 ]
