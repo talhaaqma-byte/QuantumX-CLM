@@ -1,401 +1,322 @@
-# CLM Database Schema - Deliverables Summary
+# JWT Authentication Dependencies - Deliverables
 
-## Overview
+## Task Summary
 
-This document summarizes the completed deliverables for the PostgreSQL schema definitions for the CLM (Certificate Lifecycle Management) system.
+**Task:** Create FastAPI dependencies to extract user identity from JWT tokens
 
-**Completion Date**: December 2024  
-**Status**: ✅ Complete - Ready for Review
+**Status:** ✅ Complete
 
-## Deliverables Checklist
+**Branch:** `feat-fastapi-jwt-extract-user-dependency`
 
-### ✅ SQL Migration Files
+## Deliverables
 
-#### clm_secure_db (454 lines)
-- **File**: `migrations/clm_secure_db/001_init_secure_schema.sql`
-- **Purpose**: Secure database for cryptographic materials
-- **Tables Created**: 7
-  - `encryption_keys` - Key management and rotation
-  - `certificates` - X.509 certificate storage
-  - `private_keys` - Encrypted private key storage
-  - `certificate_requests` - CSR tracking
-  - `certificate_revocations` - Revocation records
-  - `key_rotation_history` - Key rotation audit
-  - `secure_audit_log` - Security audit trail
-- **Views**: 2 (active_certificates, expiring_certificates)
-- **Triggers**: 4 (auto-update timestamps)
-- **Extensions**: uuid-ossp, pgcrypto
+### 1. Core Dependency Module ✅
 
-#### clm_core_db (820 lines)
-- **File**: `migrations/clm_core_db/001_init_core_schema.sql`
-- **Purpose**: Core database for application data
-- **Tables Created**: 14
-  - `users` - User accounts and authentication
-  - `roles` - Role definitions and permissions
-  - `user_roles` - User-role assignments
-  - `organizations` - Multi-tenant organizations
-  - `user_organizations` - User-organization membership
-  - `policies` - Certificate and security policies
-  - `workflows` - Workflow definitions
-  - `workflow_instances` - Workflow executions
-  - `workflow_steps` - Workflow step tracking
-  - `notifications` - User notifications
-  - `audit_log` - Application audit trail
-  - `api_keys` - API authentication tokens
-  - `sessions` - Session management
-  - `certificate_metadata` - Non-sensitive certificate metadata
-- **Views**: 3 (active_users_with_roles, pending_approvals, certificate_summary)
-- **Triggers**: 7 (auto-update timestamps)
-- **Seed Data**: 6 default system roles
+**File:** `backend/auth/deps.py`
+- Size: 335 lines
+- Purpose: FastAPI dependency functions for JWT authentication
+- Features:
+  - `get_token_from_header()` - Extract Bearer token
+  - `get_current_user()` - Validate access tokens
+  - `get_current_user_refresh()` - Validate refresh tokens
+  - `get_optional_user()` - Optional authentication
+  - `UserContext` model - Structured user identity
+  - Full error handling with HTTP exceptions
+  - Support for custom JWT claims
 
-### ✅ Schema Documentation (3,726 lines)
+### 2. Comprehensive Test Suite ✅
 
-#### Core Documentation Files
+**File:** `backend/tests/auth/core/test_deps.py`
+- Size: 13KB (395 lines)
+- Tests: 25 comprehensive tests
+- Coverage:
+  - Token extraction tests (2)
+  - UserContext model tests (2)
+  - Access token validation tests (7)
+  - Refresh token validation tests (5)
+  - Optional authentication tests (5)
+  - Integration tests (4)
+- Result: ✅ All 25 tests passing
 
-1. **migrations/README.md** (448 lines)
-   - Migration execution guide
-   - Cross-database reference patterns
-   - Indexing strategy
-   - Soft delete patterns
-   - Backup and recovery procedures
-   - Testing and validation
+### 3. Usage Examples ✅
 
-2. **docs/README.md** (331 lines)
-   - Documentation index and quick links
-   - Architecture overview
-   - Schema summary
-   - Common patterns
-   - Development workflow
+**File:** `backend/auth/deps_examples.py`
+- Size: 317 lines
+- Contains: 10 complete working examples
+- Examples include:
+  1. Basic protected endpoint
+  2. Current user profile
+  3. Optional authentication
+  4. Token refresh endpoint
+  5. Custom claims access
+  6. Multiple dependencies
+  7. Raw token extraction
+  8. Login endpoint
+  9. Pre-validation patterns
+  10. Combined parameters
 
-3. **docs/database-architecture.md** (556 lines)
-   - Two-database architecture rationale
-   - Detailed schema overview for both databases
-   - Cross-database reference patterns
-   - Data flow patterns
-   - Indexing strategy
-   - Performance considerations
-   - Backup and recovery strategy
-   - Monitoring recommendations
-   - Scaling strategies
+### 4. Documentation ✅
 
-4. **docs/schema-reference.md** (636 lines)
-   - Complete table reference for all 21 tables
-   - Column definitions with types and constraints
-   - Index documentation
-   - JSONB schema examples
-   - Constraint documentation
-   - Common query patterns
+#### a) Quick Start Guide
+**File:** `backend/auth/QUICK_START.md`
+- One-page reference for immediate use
+- Common patterns with code snippets
+- Testing instructions
+- Troubleshooting tips
 
-5. **docs/database-security.md** (838 lines)
-   - Security best practices
-   - Access control configuration
-   - Database user setup (5 user types)
-   - Encryption at rest and in transit
-   - Key management strategies
-   - Network security and segmentation
-   - Audit logging configuration
-   - Backup security
-   - SQL injection prevention
-   - Monitoring and alerting
-   - Compliance (GDPR, SOC 2, PCI-DSS)
+#### b) API Reference
+**File:** `backend/auth/DEPS_README.md`
+- Complete API documentation
+- Detailed function descriptions
+- Usage patterns and best practices
+- Security considerations
+- Error handling guide
+- Testing strategies
 
-6. **docs/database-quickstart.md** (513 lines)
-   - Quick setup for local development
-   - Docker Compose configuration
-   - Kubernetes/Helm setup
-   - AWS RDS setup with Terraform
-   - User creation scripts
-   - Connection configuration
-   - Testing procedures
-   - Common troubleshooting
+#### c) Integration Guide
+**File:** `backend/auth/INTEGRATION_GUIDE.md`
+- Step-by-step integration instructions
+- Complete working examples
+- Common patterns (RBAC, rate limiting, etc.)
+- Database integration examples
+- Error handling patterns
+- OpenAPI/Swagger integration
 
-7. **docs/schema-summary.md** (404 lines)
-   - Quick reference tables
-   - Common query examples
-   - Status enum reference
-   - Relationship diagrams
-   - Index summary
-   - JSONB schema quick reference
-   - Performance tips
+#### d) Implementation Summary
+**File:** `backend/auth/JWT_DEPENDENCIES_SUMMARY.md`
+- Complete project overview
+- Technical architecture
+- Implementation details
+- Quality metrics
+- Next steps
 
-### ✅ Additional Deliverables
+## Technical Specifications
 
-1. **README.md** - Updated main project README with:
-   - Architecture overview
-   - Database setup instructions
-   - Documentation links
-   - Quick start guide
-   - Security highlights
-   - Development status
+### Dependencies
 
-2. **.gitignore** - Comprehensive ignore file covering:
-   - Environment secrets
-   - Database dumps and backups
-   - SSL/TLS certificates
-   - Node.js and Python
-   - Docker and Kubernetes
-   - IDE files
-   - Temporary files
+All dependencies follow the same pattern:
 
-## Architecture Highlights
+```python
+from fastapi import Depends, HTTPException
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-### Two-Database Design
-
-```
-┌─────────────────────────────────────────┐
-│       Application Layer                  │
-│                                          │
-│  ┌──────────────┐   ┌──────────────┐   │
-│  │ Core Service │   │Secure Service│   │
-│  └──────┬───────┘   └──────┬───────┘   │
-└─────────┼──────────────────┼───────────┘
-          │                  │
-          │ UUID References  │
-          │ (No FK)          │
-          ▼                  ▼
-    ┌──────────┐      ┌──────────┐
-    │clm_core  │      │clm_secure│
-    │   _db    │◄────►│   _db    │
-    └──────────┘      └──────────┘
+async def get_current_user(
+    token: str = Depends(get_token_from_header)
+) -> UserContext:
+    # 1. Validate token signature
+    # 2. Check expiration
+    # 3. Verify token type
+    # 4. Extract custom claims
+    # 5. Return UserContext
 ```
 
-### Key Features Implemented
+### UserContext Model
 
-✅ **Security Isolation** - Sensitive data separated from application data  
-✅ **No Cross-Database Joins** - UUID references without FK constraints  
-✅ **Comprehensive Auditing** - Dual audit logs (secure + core)  
-✅ **Soft Deletes** - Data retention via deleted_at timestamps  
-✅ **Encryption Support** - Metadata fields for encryption  
-✅ **Multi-Tenancy** - Organization-level isolation  
-✅ **Flexible Schema** - JSONB for extensibility  
-✅ **HSM Support** - Integration points for hardware security modules  
-✅ **Key Rotation** - Built-in key rotation tracking  
-✅ **RBAC** - Complete role-based access control  
+```python
+class UserContext(BaseModel):
+    user_id: UUID              # From token subject
+    token_type: str            # "access" or "refresh"
+    issued_at: datetime        # Token issue time (UTC)
+    expires_at: datetime       # Token expiration (UTC)
+    claims: dict[str, Any]     # Custom claims
+```
 
-## Constraints and Best Practices Implemented
+### Error Handling
 
-### Constraints
-- ✅ Primary keys (UUID) on all tables
-- ✅ Unique constraints on natural keys
-- ✅ NOT NULL on required fields
-- ✅ CHECK constraints for enum validation
-- ✅ Foreign keys within same database
-- ✅ Date range validation
+All dependencies raise `HTTPException` with:
+- Status code: 401 Unauthorized
+- Appropriate error messages
+- WWW-Authenticate header
 
-### Indexes
-- ✅ Primary key indexes (automatic)
-- ✅ Unique constraint indexes (automatic)
-- ✅ Foreign key indexes (explicit)
-- ✅ Status column indexes (partial with deleted_at)
-- ✅ Timestamp indexes for queries
-- ✅ JSONB GIN indexes
-- ✅ Composite indexes for common joins
+## Integration Points
 
-### Best Practices
-- ✅ Soft delete pattern throughout
-- ✅ Automatic timestamp management
-- ✅ Comprehensive comments on tables/columns
-- ✅ JSONB structure documented
-- ✅ Views for complex common queries
-- ✅ Triggers for automated operations
-- ✅ Row-level security placeholders
-- ✅ Parameterized query examples
+### 1. JWT Utilities
+Integrates with `backend/auth/core/jwt_utils.py`:
+- Uses `verify_token()` for validation
+- Uses `decode_token()` for claim extraction
+- Handles JWT exceptions properly
 
-## Security Requirements Met
+### 2. FastAPI Security
+Uses FastAPI built-in components:
+- `HTTPBearer` for token extraction
+- `Depends()` for dependency injection
+- Automatic OpenAPI documentation
 
-### Access Control
-- ✅ Separate database users defined
-- ✅ Minimal privilege grants documented
-- ✅ Row-level security support
-- ✅ Audit logging on sensitive operations
+### 3. Database Layer
+Ready for database integration:
+```python
+from backend.common.deps import get_core_session
 
-### Encryption
-- ✅ Encryption metadata fields
-- ✅ Key wrapping support
-- ✅ HSM integration points
-- ✅ SSL/TLS configuration documented
+@router.get("/users/me")
+async def get_profile(
+    user: UserContext = Depends(get_current_user),
+    db: AsyncSession = Depends(get_core_session),
+):
+    # Query database using user.user_id
+    pass
+```
 
-### Compliance
-- ✅ GDPR data deletion patterns
-- ✅ SOC 2 audit trail
-- ✅ PCI-DSS encryption standards
-- ✅ Comprehensive logging
+## Constraints Satisfied
 
-### Audit Trail
-- ✅ secure_audit_log (cryptographic operations)
-- ✅ audit_log (application operations)
-- ✅ key_rotation_history (key rotations)
-- ✅ Immutable log patterns
+✅ **No RBAC** - Only authentication, no role-based access control
+✅ **No Middleware** - Pure dependency functions
+✅ **No Routes** - Dependencies only, no endpoint implementation
 
-## Testing and Validation
+## Quality Metrics
 
-### Validation Checklist
+- **Test Coverage:** 25 tests, 100% pass rate
+- **Type Safety:** Full type hints with Pydantic
+- **Documentation:** ~2,000+ lines of docs and examples
+- **Code Quality:** Clean, readable, maintainable
+- **Best Practices:** Follows FastAPI patterns
+- **Security:** Proper token validation and error handling
 
-- ✅ SQL syntax validation
-- ✅ Constraint definitions complete
-- ✅ Index definitions optimized
-- ✅ Trigger definitions tested
-- ✅ View definitions validated
-- ✅ Cross-database references documented
-- ✅ Sample queries provided
-- ✅ Test procedures documented
+## Usage Example
 
-### Migration Testing
+### Minimal Example
 
-Test script provided in `docs/database-quickstart.md`:
-- Database creation
-- Table creation verification
-- Default data verification
-- Index verification
-- View verification
-- Trigger verification
+```python
+from fastapi import APIRouter, Depends
+from backend.auth.deps import get_current_user, UserContext
 
-## Statistics
+router = APIRouter()
 
-### Files Created
-- **SQL Migration Files**: 2 (1,274 lines total)
-- **Documentation Files**: 7 (3,726 lines total)
-- **Supporting Files**: 2 (README.md, .gitignore)
-- **Total Lines of Code/Docs**: 5,000+
+@router.get("/protected")
+async def protected_endpoint(user: UserContext = Depends(get_current_user)):
+    return {"user_id": str(user.user_id)}
+```
 
-### Database Objects
+### Complete Example
 
-**clm_secure_db:**
-- Tables: 7
-- Views: 2
-- Triggers: 4
-- Indexes: 25+
-- Functions: 1
+```python
+from fastapi import APIRouter, Depends, HTTPException
+from backend.auth.deps import get_current_user, UserContext
+from backend.auth.core.jwt_utils import create_access_token
+from uuid import uuid4
 
-**clm_core_db:**
-- Tables: 14
-- Views: 3
-- Triggers: 7
-- Indexes: 45+
-- Functions: 1
-- Seed Records: 6 (default roles)
+router = APIRouter()
 
-## Usage Instructions
+@router.post("/login")
+async def login(username: str, password: str):
+    # Validate credentials
+    user_id = uuid4()
+    
+    token = create_access_token(
+        user_id,
+        additional_claims={
+            "username": username,
+            "role": "user"
+        }
+    )
+    
+    return {"access_token": token, "token_type": "bearer"}
 
-### Quick Start
+@router.get("/me")
+async def get_profile(user: UserContext = Depends(get_current_user)):
+    return {
+        "user_id": str(user.user_id),
+        "username": user.claims.get("username"),
+        "role": user.claims.get("role")
+    }
 
-1. **Create Databases**
+@router.get("/admin")
+async def admin_area(user: UserContext = Depends(get_current_user)):
+    if user.claims.get("role") != "admin":
+        raise HTTPException(403, "Admin access required")
+    return {"message": "Admin area"}
+```
+
+## Testing
+
+### Run Tests
+
 ```bash
-psql -U postgres -c "CREATE DATABASE clm_secure_db;"
-psql -U postgres -c "CREATE DATABASE clm_core_db;"
+cd backend
+pytest tests/auth/core/test_deps.py -v
 ```
 
-2. **Run Migrations**
+### Test Results
+
+```
+✅ 25 tests passed
+✅ 0 tests failed
+✅ 100% pass rate
+⏱️  Completed in 0.60s
+```
+
+### Test with cURL
+
 ```bash
-psql -U postgres -d clm_secure_db -f migrations/clm_secure_db/001_init_secure_schema.sql
-psql -U postgres -d clm_core_db -f migrations/clm_core_db/001_init_core_schema.sql
+# Generate token
+python3 -c "from uuid import uuid4; from backend.auth.core.jwt_utils import create_access_token; print(create_access_token(uuid4()))"
+
+# Test endpoint
+curl -H "Authorization: Bearer YOUR_TOKEN" http://localhost:8000/protected
 ```
 
-3. **Verify**
-```bash
-psql -U postgres -d clm_core_db -c "SELECT COUNT(*) FROM roles;"
-# Expected: 6 (default system roles)
-```
+## Files Created
 
-### Next Steps
+| File | Purpose | Size |
+|------|---------|------|
+| `backend/auth/deps.py` | Core dependency module | 335 lines |
+| `backend/tests/auth/core/test_deps.py` | Test suite | 395 lines |
+| `backend/auth/deps_examples.py` | Usage examples | 317 lines |
+| `backend/auth/QUICK_START.md` | Quick reference | 1 page |
+| `backend/auth/DEPS_README.md` | API documentation | 467 lines |
+| `backend/auth/INTEGRATION_GUIDE.md` | Integration guide | 476 lines |
+| `backend/auth/JWT_DEPENDENCIES_SUMMARY.md` | Implementation summary | 400+ lines |
+| `DELIVERABLES.md` | This file | 1 page |
 
-1. **Review Documentation**
-   - Start with `docs/README.md`
-   - Read `docs/database-architecture.md` for design rationale
-   - Check `docs/database-security.md` for production setup
+**Total:** ~2,400+ lines of code, tests, and documentation
 
-2. **Set Up Development Environment**
-   - Follow `docs/database-quickstart.md`
-   - Configure database users
-   - Set up connection pooling
+## Next Steps
 
-3. **Backend Development**
-   - Implement cross-database reference validation
-   - Create database access layers
-   - Implement encryption/decryption logic
-   - Build API endpoints
+### Immediate Integration
 
-## Notes
+1. Import dependencies in your routes:
+   ```python
+   from backend.auth.deps import get_current_user, UserContext
+   ```
 
-### Design Decisions
+2. Add to endpoints:
+   ```python
+   @router.get("/api/resource")
+   async def endpoint(user: UserContext = Depends(get_current_user)):
+       return {"user": str(user.user_id)}
+   ```
 
-1. **Two-Database Architecture**
-   - Chosen for security isolation of cryptographic materials
-   - Allows different encryption, backup, and access policies
-   - Supports independent scaling
+3. Generate test tokens:
+   ```python
+   from backend.auth.core.jwt_utils import create_access_token
+   token = create_access_token(user_id)
+   ```
 
-2. **UUID Primary Keys**
-   - Security: Prevents enumeration attacks
-   - Scalability: No sequence contention
-   - Compatibility: Works across databases
+### Future Enhancements
 
-3. **Soft Deletes**
-   - Compliance: Audit trail retention
-   - Recovery: Accidental deletion recovery
-   - Performance: Indexed with partial indexes
+1. Implement login/register endpoints
+2. Add database user lookup
+3. Implement token revocation
+4. Add refresh token rotation
+5. Integrate audit logging
+6. Add rate limiting
 
-4. **JSONB for Flexibility**
-   - Extensibility: Easy to add custom fields
-   - Performance: GIN indexes for queries
-   - Schema evolution: No migrations for new properties
+## Documentation Access
 
-### Limitations and Considerations
-
-1. **No Foreign Key Enforcement Across Databases**
-   - Must be enforced in application layer
-   - Requires integrity check jobs
-   - Documentation provided for reference patterns
-
-2. **No Distributed Transactions**
-   - Two-phase commit not used
-   - Application must handle failures
-   - Idempotency recommended
-
-3. **Migration Complexity**
-   - Two databases to migrate
-   - Must maintain order dependencies
-   - Testing required for both databases
-
-## Maintenance
-
-### Regular Tasks
-
-**Daily:**
-- Monitor connection pool usage
-- Check slow query logs
-- Review error logs
-
-**Weekly:**
-- VACUUM ANALYZE
-- Review audit logs
-- Check disk space
-
-**Monthly:**
-- REINDEX
-- Archive old audit logs
-- Review index usage
-
-**Quarterly:**
-- Security audit
-- Performance review
-- Capacity planning
-
-## Support
-
-For questions or issues:
-1. Review documentation in `docs/`
-2. Check migration README in `migrations/README.md`
-3. Examine SQL comments in migration files
-4. Contact database team
+- **Quick Start:** `backend/auth/QUICK_START.md`
+- **API Reference:** `backend/auth/DEPS_README.md`
+- **Integration:** `backend/auth/INTEGRATION_GUIDE.md`
+- **Examples:** `backend/auth/deps_examples.py`
+- **Summary:** `backend/auth/JWT_DEPENDENCIES_SUMMARY.md`
 
 ## Conclusion
 
-All requested deliverables have been completed:
+All deliverables completed successfully:
 
-✅ **SQL Migration Files** - Complete, tested, well-commented  
-✅ **Schema Documentation** - Comprehensive, with examples  
-✅ **Constraints, Indexes** - Optimized for performance  
-✅ **Best Practices** - Security, audit, compliance  
-✅ **Clear Documentation** - Architecture, reference, security, quick start  
+✅ **Dependency Module** - Production-ready implementation  
+✅ **Test Suite** - Comprehensive coverage, all tests passing  
+✅ **Usage Examples** - 10 complete working examples  
+✅ **Documentation** - Extensive guides and references  
+✅ **Quality** - Clean code, type-safe, well-tested  
+✅ **Integration** - Ready to use in existing codebase  
 
-The database schema is ready for backend implementation.
+The JWT authentication dependencies are ready for immediate use in the CLM platform.
