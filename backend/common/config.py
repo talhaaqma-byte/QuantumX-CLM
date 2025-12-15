@@ -60,6 +60,15 @@ class Settings(BaseSettings):
         description="Refresh token expiration time in days",
     )
 
+    oauth_authorization_code_ttl_seconds: int = Field(
+        default=600,
+        description="OAuth authorization code TTL in seconds (default: 10 minutes)",
+    )
+    oauth_issuer: str = Field(
+        default="https://auth.clm.local",
+        description="OAuth2/OIDC issuer URI",
+    )
+
 
 @lru_cache
 def get_settings() -> Settings:
