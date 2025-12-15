@@ -1,0 +1,21 @@
+[project]
+name = "quantumx-clm-backend"
+version = "0.1.0"
+description = "QuantumX-CLM FastAPI backend"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.111",
+  "uvicorn[standard]>=0.30",
+  "pydantic>=2.7",
+  "pydantic-settings>=2.3",
+  "SQLAlchemy>=2.0",
+  "asyncpg>=0.29",
+  "alembic>=1.13",
+]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]

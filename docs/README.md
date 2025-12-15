@@ -13,6 +13,10 @@ Welcome to the Certificate Lifecycle Management (CLM) platform documentation.
 | [Database Security](./database-security.md) | Security best practices, access controls, encryption, and compliance guidelines |
 | [Database Quick Start](./database-quickstart.md) | Step-by-step guide to set up databases locally, Docker, Kubernetes, and cloud |
 
+### Backend Documentation
+
+- [Backend API (FastAPI)](./backend-api.md) - Running the API, configuration, and dual-DB setup
+
 ### Migration Documentation
 
 - [Migration README](../migrations/README.md) - Guide for running database migrations
@@ -26,6 +30,7 @@ Welcome to the Certificate Lifecycle Management (CLM) platform documentation.
 4. Follow [Database Security](./database-security.md) for production deployments
 
 ### For Developers
+- **API Setup**: See [Backend API (FastAPI)](./backend-api.md)
 - **Schema Changes**: See [Migration README](../migrations/README.md)
 - **Query Examples**: See [Schema Reference](./schema-reference.md)
 - **Access Patterns**: See [Database Architecture](./database-architecture.md)
