@@ -75,6 +75,11 @@ class User(Base, UUIDMixin, TimestampMixin):
         back_populates="user",
         foreign_keys="[UserRole.user_id]"
     )
+    owned_certificates: Mapped[List["CertificateMetadata"]] = relationship(
+        back_populates="owner",
+        foreign_keys="[CertificateMetadata.owner_user_id]",
+        viewonly=True
+    )
 
     __table_args__ = (
         CheckConstraint(
