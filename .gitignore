@@ -1,0 +1,291 @@
+# QuantumX-CLM .gitignore
+
+# =====================================================================
+# Environment & Secrets
+# =====================================================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets/
+*.secret
+
+# =====================================================================
+# Database
+# =====================================================================
+# PostgreSQL
+*.sql.backup
+*.dump
+*.pgdata
+pg_data/
+postgres_data/
+*.psql_history
+
+# Database connection files
+.pgpass
+.psqlrc
+
+# Migration backups
+migrations/**/*.backup
+migrations/**/*.rollback
+
+# =====================================================================
+# Node.js / Backend
+# =====================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+.cache/
+
+# Coverage
+coverage/
+.nyc_output/
+*.lcov
+
+# IDE - VSCode
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+*.code-workspace
+
+# IDE - JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# =====================================================================
+# Python (if used)
+# =====================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# =====================================================================
+# Frontend / React
+# =====================================================================
+# Dependencies
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# Testing
+frontend/coverage/
+
+# Production
+frontend/build/
+frontend/.next/
+frontend/out/
+
+# Misc
+.DS_Store
+*.pem
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# =====================================================================
+# Docker
+# =====================================================================
+docker-compose.override.yml
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# =====================================================================
+# Kubernetes
+# =====================================================================
+# Sensitive K8s files
+*-secret.yaml
+*-secrets.yaml
+!*-secret.example.yaml
+
+# Helm
+*.tgz
+charts/*.lock
+
+# =====================================================================
+# Logs
+# =====================================================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# =====================================================================
+# OS
+# =====================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# =====================================================================
+# Testing
+# =====================================================================
+test-results/
+.jest/
+.nyc_output/
+coverage/
+*.spec.js.snap
+
+# =====================================================================
+# Temporary Files
+# =====================================================================
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# =====================================================================
+# Backup Files
+# =====================================================================
+*.backup
+*.old
+*.orig
+backups/
+
+# =====================================================================
+# SSL/TLS Certificates (sensitive)
+# =====================================================================
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+*.cer
+*.der
+certs/private/
+ssl/private/
+
+# Allow example certs for documentation
+!docs/**/*.pem.example
+!docs/**/*.crt.example
+
+# =====================================================================
+# Build Artifacts
+# =====================================================================
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+*.dll
+*.class
+*.jar
+*.war
+*.ear
+
+# =====================================================================
+# Package Manager
+# =====================================================================
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.pnp.*
+
+# =====================================================================
+# Terraform (if used for IaC)
+# =====================================================================
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# =====================================================================
+# Cloud Provider CLIs
+# =====================================================================
+.aws/
+.azure/
+.gcloud/
+
+# =====================================================================
+# CI/CD
+# =====================================================================
+.github/workflows/*.log
+
+# =====================================================================
+# Documentation Build
+# =====================================================================
+docs/_build/
+docs/.doctrees/
+site/
+
+# =====================================================================
+# Performance & Profiling
+# =====================================================================
+*.prof
+*.trace
+*.heap
+*.cpuprofile
+
+# =====================================================================
+# Security Scanning
+# =====================================================================
+.snyk
+.trivyignore
+vulnerability-reports/
+
+# =====================================================================
+# Development
+# =====================================================================
+.scratch/
+.todo
+TODO.md
+NOTES.md
+scratch.*
