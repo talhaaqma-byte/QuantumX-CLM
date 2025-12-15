@@ -115,30 +115,31 @@ For detailed setup instructions, see [Database Quick Start Guide](./docs/databas
 - [x] Migration scripts
 - [x] Comprehensive documentation
 - [x] Security architecture
+- [x] FastAPI backend foundation (async, modular, env-based config, logging)
 
 ### In Progress
-- [ ] Backend service implementation
+- [ ] Backend service implementation (auth, workflows, certificate operations)
 - [ ] Frontend application
-- [ ] API development
+- [ ] API development (endpoints, validation, auth)
 - [ ] Integration testing
 
 ## Technology Stack
 
 - **Databases**: PostgreSQL 12+
-- **Backend**: Node.js / Python (TBD)
+- **Backend**: Python (FastAPI, async SQLAlchemy)
 - **Frontend**: React
 - **Infrastructure**: Docker, Kubernetes
 - **Cloud**: AWS / Azure / GCP support
 
 ## Getting Started
 
-This project is currently in the setup phase. The database schema and migrations are complete.
+This project includes the database schema/migrations and a FastAPI backend foundation.
 
 Next steps:
-1. Review the [database documentation](./docs/)
-2. Set up local databases using the [quick start guide](./docs/database-quickstart.md)
-3. Explore the [schema reference](./docs/schema-reference.md)
-4. Backend implementation coming soon
+1. Review the documentation index in [`docs/README.md`](./docs/README.md)
+2. Set up local databases using the [Database Quick Start](./docs/database-quickstart.md)
+3. Run the API using the [Backend API guide](./docs/backend-api.md)
+4. Start implementing service endpoints under `backend/auth`, `backend/workflows`, etc.
 
 ## License
 
