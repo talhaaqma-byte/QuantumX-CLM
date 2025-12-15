@@ -65,9 +65,16 @@ class User(Base, UUIDMixin, TimestampMixin):
 
     # Relationships
     roles: Mapped[List["Role"]] = relationship(
-        secondary="user_roles", back_populates="users", viewonly=True
+        secondary="user_roles", 
+        back_populates="users", 
+        viewonly=True,
+        primaryjoin="User.id==UserRole.user_id",
+        secondaryjoin="Role.id==UserRole.role_id"
     )
-    user_roles: Mapped[List["UserRole"]] = relationship(back_populates="user")
+    user_roles: Mapped[List["UserRole"]] = relationship(
+        back_populates="user",
+        foreign_keys="[UserRole.user_id]"
+    )
 
     __table_args__ = (
         CheckConstraint(
@@ -108,7 +115,11 @@ class Role(Base, UUIDMixin, TimestampMixin):
 
     # Relationships
     users: Mapped[List["User"]] = relationship(
-        secondary="user_roles", back_populates="roles", viewonly=True
+        secondary="user_roles", 
+        back_populates="roles", 
+        viewonly=True,
+        primaryjoin="Role.id==UserRole.role_id",
+        secondaryjoin="User.id==UserRole.user_id"
     )
     user_roles: Mapped[List["UserRole"]] = relationship(back_populates="role")
     
@@ -150,7 +161,7 @@ class UserRole(Base, UUIDMixin):
     )
 
     # Relationships
-    user: Mapped["User"] = relationship(back_populates="user_roles")
+    user: Mapped["User"] = relationship(back_populates="user_roles", foreign_keys=[user_id])
     role: Mapped["Role"] = relationship(back_populates="user_roles")
 
     __table_args__ = (
