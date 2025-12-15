@@ -8,12 +8,16 @@ from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
+from backend.common.models import Base
+# Import all models to ensure they are registered with Base.metadata
+from backend.auth.models import rbac
+
 config = context.config
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-target_metadata = None
+target_metadata = Base.metadata
 
 
 def _get_url() -> str:
